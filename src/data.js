@@ -21,7 +21,7 @@ class StoryblokTo11tyData {
   constructor(params = {}) {
     this.api_version = params.version || 'draft'
     this.storyblok_api_token = params.token
-    this.stories_path = this.cleanPath(params.stories_path || 'storyblok')
+    this.stories_path = this.cleanPath(params.stories_path || '_data')
     this.datasources_path = this.cleanPath(params.datasources_path || '_data')
     this.layouts_path = params.layouts_path || ''
     this.components_layouts_map = params.components_layouts_map || {}
@@ -240,7 +240,7 @@ class StoryblokTo11tyData {
     // Storing entries as json front matter
     try {
       stories.forEach(story => {
-        fs.writeFileSync(`${this.stories_path}${story.uuid}.md`, `---json\n${JSON.stringify(story, null, 4)}\n---`)
+        fs.writeFileSync(`${this.stories_path}${story.slug}.json`, `${JSON.stringify(story, null, 4)}`)
       })
       console.log(`${stories.length} stories saved in ${this.stories_path}`)
       return true
